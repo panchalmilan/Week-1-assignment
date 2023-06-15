@@ -9,7 +9,30 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
-}
+  const expAnalysisObj = {};
+  transactions.forEach(({ category, price }) => {
+    if (category in expAnalysisObj) expAnalysisObj[category] += price;
+    else expAnalysisObj[category] = price;
+  });
+  /*
+    expAnalysisObj ->
+    Food:30
+    Clothing:40
+    Electronics:30
+  */
 
+  // format data as per output needed
+  const expAnalysisList = [];
+  for (const key in expAnalysisObj)
+    expAnalysisList.push({ category: key, totalSpent: expAnalysisObj[key] });
+  /*
+    expAnalysisList ->
+    [
+      { category: 'Food', totalSpent: 30 },
+      { category: 'Clothing', totalSpent: 40 },
+      { category: 'Electronics', totalSpent: 30 }
+    ]
+  */
+  return expAnalysisList;
+}
 module.exports = calculateTotalSpentByCategory;
